@@ -1,0 +1,17 @@
+.viewer-panel {
+  /* Κρατάμε ίδιο αισθητικό πλαίσιο */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.viewer-panel h2 {
+  margin: 0 0 6px 0;
+}
+
+.viewer-panel .muted {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
