@@ -9,7 +9,13 @@ export default function FileUpload({ setResults, loading, setLoading }) {
   const [filterNames, setFilterNames] = useState(false);
   const [fileType, setFileType] = useState(null);
   const [fuzzyThreshold,setFuzzyThreshold] = useState(79); //default threshold
-   
+  const resetStates = () => {
+    setFile(null);
+    setFileType(null);
+    setFilterNames(false);
+    setFuzzyThreshold(79); // reset στο default
+    setResults({ Names: [], Plates: [] }); // καθαρισμός αποτελεσμάτων
+  }; 
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -69,28 +75,39 @@ export default function FileUpload({ setResults, loading, setLoading }) {
 
   return (
     <div >
-      <h2>Έξυπνη Ανάλυση</h2>
-
+      <h2>Έξυπνη Ανάλυση</h2> 
+      
       <div className="upload-box">
-
+        
         <div className="input-with-icon">
           <div className="input-first-inner">
             <label htmlFor="fileInput" className="upload-label">
-              Επιλέξτε Αρχείο:
+              {file ? (
+                  <>
+                      <span className="file-label-text">Επιλέξατε:</span>{" "}
+                      <span
+                      className={`file-name-text ${fileType}`}
+                      >
+                      {file.name}
+                      </span>
+                  </>
+                  ) : (
+                  <span className="select-file-text">Επιλέξτε Αρχείο:</span>
+                  )} 
             </label> 
             <input
+              id="fileInput"
               type="file"
               onChange={handleFileChange}
               accept=".pdf,.xls,.xlsx,.doc,.docx"
               className="upload-input"
             />
-
+            
             {/* Προεπισκόπηση αρχείου με icon */}
             {fileType && (
               <div 
                     className="file-preview" 
                     style={{
-
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -98,7 +115,8 @@ export default function FileUpload({ setResults, loading, setLoading }) {
                         height: "40px",
                         border: "1px solid #ccc",
                         borderRadius: "8px",
-                        backgroundColor: "#f9f9f9"
+                        backgroundColor: "#f9f9f9",
+                        marginLeft: "8px"
                     }}
                 >
                   {fileType === "pdf" && <FaFilePdf color="red" size={30} />}
@@ -147,11 +165,18 @@ export default function FileUpload({ setResults, loading, setLoading }) {
         </div>
 
           <button className="upload-button" onClick={handleUpload} disabled={loading}>
-            {loading ? "Ανάλυση..." : "Ανάλυση / Αναζήτηση"}
+            {loading ? "Φόρτωση δεδομένων..." : "Ανάλυση / Αναζήτηση"}
+          </button>
+
+          <button 
+            className="reset-button"
+            onClick={resetStates}
+            >
+              🗑️ Καθαρισμός
           </button>
 
       </div>
-        
+       
     </div>
   );
 }

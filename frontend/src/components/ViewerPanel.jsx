@@ -6,7 +6,7 @@ import "@react-pdf-viewer/search/lib/styles/index.css";
 import * as pdfjsLib from "pdfjs-dist/build/pdf";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { FaFilePdf, FaFileExcel, FaFileWord } from "react-icons/fa";
+import { FaFilePdf, FaFileExcel, FaFileWord, FaCheckCircle } from "react-icons/fa";
 import * as XLSX from 'xlsx';
 
 export default function ViewerPanel() {
@@ -16,6 +16,16 @@ export default function ViewerPanel() {
     const [loading, setLoading] = useState(false);
     const [fileType, setFileType] = useState(null)
     const [excelContent, setExcelContent] = useState("");
+    const [selectedFile, setSelectedFile] = useState(null);   
+
+    const resetStates = () => {
+        setSelectedFile(null);
+        setFileType(null);
+        setPdfUrl(null);
+        setExcelContent("");
+        setFoundKeywords([]);
+        setLoading(false);
+    };
 
     // Buffer για keywords που βρίσκονται
     const resultsRef = useRef(new Set());
@@ -44,6 +54,8 @@ export default function ViewerPanel() {
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
+
+        setSelectedFile(file);
 
         const extension = file.name.split('.').pop().toLowerCase();
         setFileType(extension);
@@ -164,8 +176,23 @@ export default function ViewerPanel() {
                     
                 <div className="input-with-icon">
                     <div className="input-first-inner">
-                        <label htmlFor="fileInput" className="upload-label">Επιλέξτε Αρχείο:</label>
-                        <input type="file" 
+                        <label htmlFor="viewerFileInput" className="upload-label">
+                            {selectedFile ? (
+                                <>
+                                    <span className="file-label-text">Επιλέξατε:</span>{" "}
+                                    <span
+                                    className={`file-name-text ${fileType}`}
+                                    >
+                                    {selectedFile.name}
+                                    </span>
+                                </>
+                                ) : (
+                                <span className="select-file-text">Επιλέξτε Αρχείο:</span>
+                                )}
+                        </label>
+                        <input 
+                        id="viewerFileInput"
+                        type="file" 
                         onChange={handleFileChange} 
                         accept=".pdf,.xls,.xlsx,.doc,.docx"
                         className="upload-input"/>
@@ -196,14 +223,29 @@ export default function ViewerPanel() {
                 </div>
 
                 
-                <button className="upload-button" onClick={handleSearch}>Αναζήτηση</button>
+                <button className="upload-button" onClick={handleSearch} disabled={loading}>
+                    {loading ? "Φόρτωση δεδομένων..." : "Αναζήτηση"}
+                    </button>
+                <button 
+                    className="reset-button"
+                    onClick={resetStates}
+                    >
+                    🗑️ Καθαρισμός
+                </button>
             </div>
 
             <div className="results-box panel" style={{ marginTop: "16px" }}>
 
                 <div className="results-box">
                 
-                <h2>Αποτελέσματα</h2>
+                <h2>Αποτελέσματα
+                    {foundKeywords.length > 0 && (
+                        <FaCheckCircle 
+                            color="#ffb100" 
+                            size={24} 
+                            style={{ marginLeft: "8px" }} 
+                        />
+                 )}</h2>
                 {foundKeywords.length === 0 ? (
                     <p>Δεν βρέθηκαν αποτελέσματα.</p>
                 
