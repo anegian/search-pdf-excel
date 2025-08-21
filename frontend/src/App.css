@@ -50,6 +50,9 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
   gap:14px;
 }
 
+/*---------------------*/
+/* Choice Cards in UI */
+/*---------------------*/
 .mode-card{
   display:flex;
   align-items:center;
@@ -69,7 +72,6 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
   border-color: color-mix(in oklab, var(--accent) 65%, white 0%);
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 55%, transparent 0%), var(--shadow);
 }
-
 .mode-icon{
   width:42px; height:42px; border-radius:12px;
   display:grid; place-items:center;
@@ -77,11 +79,9 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
   border:1px solid rgba(255,177,0,0.32);
   font-size:20px;
 }
-
 .mode-texts{display:flex; flex-direction:column; gap:2px}
 .mode-title{font-weight:700}
 .mode-sub{font-size:12.5px; color:var(--muted)}
-
 .content{display:block; margin-top:10px}
 .panel{
   background: var(--card);
@@ -91,10 +91,41 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
   box-shadow: var(--shadow);
 }
 
+/*---------------------*/
+/* Reset Button in UI */
+/*---------------------*/
+.reset-button {
+  width: 160px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  /*background: linear-gradient(90deg, #4cc9f0, #4361ee);*/
+  background:  #f05454;
+  color: #f2f2f2;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+.reset-button:hover {
+  background: #d94343;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+
+}
+
+.reset-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/*---------------------*/
+/* ViewerPanel */
+/*---------------------*/
 .viewer-panel h2{margin:0 0 6px 0}
 .muted{color:var(--muted); margin:0 0 16px 0}
 
-/* cute viewer placeholder */
 .viewer-placeholder{
   border:1px dashed rgba(255,255,255,0.18);
   border-radius:16px;
@@ -110,40 +141,80 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
 .viewer-line{height:10px; border-radius:6px; background: rgba(255,255,255,0.08); margin:8px 0}
 .viewer-line.short{width:60%}
 
+/*---------------------*/
+/* Ratios slider in FileUpload.jsx */
+/*---------------------*/
+.custom-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #f2f2f2;
+  outline: none;
+}
+/* Χρώμα γεμάτο (Chrome, Safari, Edge) */
+.custom-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #4cc9f0 0%, #4cc9f0 var(--val), #f2f2f2 var(--val), #f2f2f2 100%);
+}
+/* Thumb */
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: orange;
+  cursor: pointer;
+  margin-top: -5px; /* για να κάτσει στη μέση της γραμμής */
+  border: 2px solid #ee89069a;
+}
+/* Firefox γεμάτο */
+.custom-slider::-moz-range-progress {
+  background-color: #4cc9f0;
+  height: 8px;
+  border-radius: 4px;
+}
+/* Firefox άδειο */
+.custom-slider::-moz-range-track {
+  background-color: #f2f2f2;
+  height: 8px;
+  border-radius: 4px;
+}
 
-/* FileUpload specific */
+/*---------------------*/
+/* FileUpload (and in Simple Search)*/
+/*---------------------*/
 .upload-box {
   display: flex;
   flex-direction: column;
   gap: 16px;
 
 }
-
-.upload-label{
-  color: #ffb100;
-  font-weight: bold;
-  min-width: 140px;
-}
-
 .upload-input {
-  margin-left: 8px;
-  padding: 12px;
-  font-size: 12px;
+  display: none; /* κρύβουμε το native input */
+}
+.upload-label {
+  display: inline-block;
+  padding: 12px 16px;
+  font-size: 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: rgba(255,255,255,0.05);
   color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease;
-  max-width: 320px;
 }
-
-.upload-input:hover {
+.upload-label:hover {
   background: rgba(255,255,255,0.12);
   border-color: var(--accent2);
 }
-
 .upload-button {
+  margin-top: 10px;
   padding: 12px 20px;
   font-size: 16px;
   font-weight: 600;
@@ -170,11 +241,9 @@ body{margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, A
   gap: 10px;
   margin-top: 8px;
 }
-
 input, input#file-upload-button{
   cursor: pointer;
 }
-
 .filters-settings{
   display: flex;
   flex-direction:row;
@@ -182,11 +251,12 @@ input, input#file-upload-button{
   font-size: 14px;
 }
 .filters-settings-inner{
-  margin-top: 10px;
+  margin-top: 8px;
   color: #f2f2f2;
   font-weight: bold;
   min-width: 200px;
   max-width: 240px;
+  height: auto;
   text-align:center;
 }
 .input-first-inner{
@@ -197,12 +267,36 @@ input, input#file-upload-button{
     align-items: center;
     gap: 10px;
 }
+.file-label-text {
+  color: #ffaa00;
+  font-weight: 600;
+}
+.select-file-text {
+  color: #ffaa00;
+  font-weight: 600;
+}
+.file-name-text {
+  font-weight: 500;
+}
+.file-name-text.pdf {
+  color: rgb(233, 40, 40);
+}
+.file-name-text.xlsx,
+.file-name-text.xls {
+  color: green;
+}
+.file-name-text.doc,
+.file-name-text.docx {
+  color: #4cc9f0;
+}
 
+/*---------------------*/
+/* filter only names in FileUpload.jsx*/
+/*---------------------*/
 .info-text {
   position: relative;
   cursor: pointer;
 }
-
 /* Το tooltip που εμφανίζεται στο hover */
 .info-text::after {
   content: "Αφαιρεί αριθμητικούς χαρακτήρες, βοηθάει σε λίστες SF";
@@ -225,53 +319,10 @@ input, input#file-upload-button{
   opacity: 1;
 }
 
-.custom-slider {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: #f2f2f2;
-  outline: none;
-}
 
-/* Χρώμα γεμάτο (Chrome, Safari, Edge) */
-.custom-slider::-webkit-slider-runnable-track {
-  height: 8px;
-  border-radius: 4px;
-  background: linear-gradient(to right, #4cc9f0 0%, #4cc9f0 var(--val), #f2f2f2 var(--val), #f2f2f2 100%);
-}
-
-/* Thumb */
-.custom-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: orange;
-  cursor: pointer;
-  margin-top: -5px; /* για να κάτσει στη μέση της γραμμής */
-  border: 2px solid #ee89069a;
-}
-
-/* Firefox γεμάτο */
-.custom-slider::-moz-range-progress {
-  background-color: #4cc9f0;
-  height: 8px;
-  border-radius: 4px;
-}
-
-/* Firefox άδειο */
-.custom-slider::-moz-range-track {
-  background-color: #f2f2f2;
-  height: 8px;
-  border-radius: 4px;
-}
-
-
+/*---------------------*/
+/* Fil Preview in Simple Search */
+/*---------------------*/
 .file-preview {
   width: 40px;
   height: 40px;
@@ -299,8 +350,6 @@ input, input#file-upload-button{
   color: #000000;
   font-family: Arial, sans-serif;
 }
-
-
 .excel-table th,
 .excel-table td {
   border: 1px dashed #ccc;
@@ -309,14 +358,12 @@ input, input#file-upload-button{
   white-space: nowrap;
   min-width: 100px;
 }
-
 .excel-table th {
   position: sticky;
   top: 0;
   background-color: #f3f3f3;
   z-index: 2;
 }
-
 .excel-table th.row-num,
 .excel-table td.row-num {
   position: sticky;
@@ -324,30 +371,27 @@ input, input#file-upload-button{
   background-color: #f3f3f3;
   z-index: 3;
 }
-
 .excel-table tr:nth-child(even) td {
   background-color: #fff; /* πάντα λευκό */
 }
-
 .excel-table tr:hover td {
   background-color: #e0f7fa;
 }
 
-
-/* small tweaks for your existing components if needed */
+/*---------------------*/
+/* Results Box (bor both Searches)*/
+/*---------------------*/
 .results-box{ margin-top:16px }
 
 .results-box ul {
     margin: 8px 0 0 0;
     padding-left: 20px;
 }
-
 .results-box li {
     margin-bottom: 6px;
     color: var(--text);
     font-size: 14px;
 }
-
 .spinner {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #3498db;
@@ -356,23 +400,23 @@ input, input#file-upload-button{
     height: 36px;
     animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-@media (max-width: 768px) {
+/*---------------------*/
+/* Responsive Screens 840px*/
+/*---------------------*/
+@media (max-width: 840px) {
   .results-box table {
     min-width: 100%; /* σε tablet / κινητό προσπαθούμε να ταιριάξει */
   }
-
   .results-box th,
   .results-box td {
     padding: 6px 8px;
     font-size: 0.9rem;
   }
-
   .filters-settings{
     flex-direction:column;
   }
@@ -387,14 +431,17 @@ input, input#file-upload-button{
     font-size: 10px;
     max-width: 240px;
   }
-
 }
 
-
-@media (max-width: 980px) {
+/*---------------------*/
+/* Responsive Screens 1040px*/
+/*---------------------*/
+@media (max-width: 1040px) {
   .input-first-inner{
     max-width: 340px;
-    flex-direction: column;
+  }
+  .filters-settings{
+    flex-direction:column;
   }
   .filters-settings-inner{
     min-width: 200px;
