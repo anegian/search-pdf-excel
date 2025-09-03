@@ -1,0 +1,29 @@
+{
+  "name": "search-app",
+  "version": "1.0.0",
+  "description": "Search App with Electron, React & Flask backend",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^37.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "author": "Anestis",
+  "license": "ISC",
+  "type": "commonjs",
+  "build": {
+    "appId": "com.anestis.searchapp",
+    "productName": "SearchApp",
+    "icon": "frontend/public/search-app.ico",
+    "win": {
+      "target": "portable",
+      "forceCodeSigning": false
+    },
+    "directories": {
+      "output": "dist_build"
+    }
+  }
+}

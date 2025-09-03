@@ -1,0 +1,36 @@
+# Αγνόησε τον φάκελο με τα dependencies
+frontend/node_modules/
+electron/node_modules/
+
+# Αγνόησε τα build αρχεία
+backend/frontend_build/
+backend/build/app
+backend/dist
+frontend/build
+electron/dist/SearchApp-win32-x64
+
+# Αγνόησε αρχεία ρυθμίσεων περιβάλλοντος
+.env
+.env.local
+.env.*.local
+
+# Αγνόησε τον φάκελο virtual environment
+backend/venv/
+
+# Αγνόησε logs
+*.log
+
+# Αγνόησε system αρχεία
+.DS_Store
+Thumbs.db
+
+# Αγνόησε συγκεκριμένα αρχεία backend
+backend/filters.txt
+backend/lastnames.txt
+backend/debug_output.txt
+backend/filters_custom.txt
+info_for_setup.txt
+electron/debug_output.txt
+
+# Αγνόησε φάκελο backend/temp_file_uploads
+backend/temp_file_uploads/
